@@ -48,7 +48,7 @@
   <script src="bootstrap.bundle.min.js"></script>
   <script src="tilt-card.js"></script>
   <script>
-    // Load the navbar
+    // woo wowwwwww
     fetch('navbar.html')
       .then(response => response.text())
       .then(data => {
@@ -56,14 +56,19 @@
       })
       .catch(error => console.error('Error loading navbar:', error));
 
-    // Fetch and embed the YouTube video
+    // emb em bebe
     document.getElementById('fetch-video').addEventListener('click', function() {
       const youtubeUrl = document.getElementById('youtube-url').value;
       const videoId = youtubeUrl.split('v=')[1];
       if (videoId) {
         const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
-        document.getElementById('video-container').innerHTML = `
-          <iframe width="560" height="315" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        const videoContainer = document.getElementById('video-container');
+        videoContainer.innerHTML = `
+          <div style="display: flex; justify-content: center; align-items: center;">
+            <div style="position: relative; padding-bottom: 56.25%; width: 100%; max-width: 1280px;">
+              <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
         `;
       } else {
         alert('Please enter a valid YouTube URL.');
