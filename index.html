@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yotube unblocked woahh</title>
+    <title>yt video player</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,26 +15,24 @@
     </style>
 </head>
 <body>
-    <h1>unblock youtube o ma gaw</h1>
-    <br><br>
-    <label for="youtube-url">enter yt vid url:</label>
-    <input type="text" id="youtube-url" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" style="width: 300px;">
+    <h1>yt no cookie</h1>
+    <label for="youtube-url">yt url:</label>
+    <input type="text" id="youtube-url" placeholder="https://www.youtube.com/watch?v=example" style="width: 300px;">
     <button id="fetch-video">fetch</button>
     <div id="video-container"></div>
 
     <script>
         document.getElementById('fetch-video').addEventListener('click', function() {
-            const instance = document.getElementById('instance-select').value;
             const youtubeUrl = document.getElementById('youtube-url').value;
             const videoId = youtubeUrl.split('v=')[1];
 
             if (videoId) {
-                const embedUrl = `https://youtube-nocookie.com/embed/${videoId}`;
+                const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
                 document.getElementById('video-container').innerHTML = `
                     <iframe width="560" height="315" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 `;
             } else {
-                alert('valid url omg.');
+                alert('Please enter a valid YouTube URL.');
             }
         });
     </script>
