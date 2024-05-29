@@ -40,10 +40,12 @@ a {
   color: #fff;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .member-card:hover {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  transform: scale(1.05);
 }
 
 .btn-outline-light {
@@ -54,6 +56,11 @@ a {
 .btn-outline-light:hover {
   background-color: #fff;
   color: #333;
+}
+
+.rounded-card {
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .modal-content {
