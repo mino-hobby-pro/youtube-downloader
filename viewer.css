@@ -103,6 +103,53 @@ a {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
+.video-details-box {
+  background-color: rgba(128, 128, 128, 0.5);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.video-details-card {
+  background-color: rgba(255, 255, 255, 0.064);
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.video-details-card:hover {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.video-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.video-published {
+  font-size: 0.9rem;
+}
+
+.separator {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.video-description {
+  max-height: 200px;
+  overflow-y: auto;
+}
+.video-description p {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.view-count-icon,
+.like-count-icon,
+.dislike-count-icon {
+  margin-right: 0.5rem;
+}
+
 canvas {
   position: fixed;
   top: 0;
