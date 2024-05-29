@@ -118,6 +118,7 @@ a {
   background-color: rgba(128, 128, 128, 0.5);
   border-radius: 10px;
   backdrop-filter: blur(10px);
+  z-index: 1;
 }
 
 .video-details-card {
@@ -126,6 +127,7 @@ a {
   color: #fff;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.3s ease-in-out;
+  z-index: 1;
 }
 
 .video-details-card:hover {
