@@ -18,3 +18,4 @@ though, this does not work locally due to cors restrictions imposed by invidious
 
 ### made by appleflyer
 ### join the bromine35 discord at <https://discord.com/invite/49GRvw9BrW>
+### no discord? thats fine. use our widgetbot at <https://bromine35.photowidget.com>
