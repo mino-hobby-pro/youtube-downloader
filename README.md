@@ -1,4 +1,5 @@
-# made by applelflyer
+# BrTube
+## information
 
 services used:
 invidious api(vid.puffyan.us)
@@ -7,7 +8,7 @@ cobalt api(api.cobalt.tools)
 website hosted on
 <https://bromineyt.netlify.app>
 
-# want to host this yourself?
+## want to host this yourself?
 
 just clone this repository, and use your preferred hosting provider to host this website
 *examples: vercel, netlify, replit*
@@ -15,3 +16,4 @@ just clone this repository, and use your preferred hosting provider to host this
 
 though, this does not work locally due to cors restrictions imposed by invidious.
 
+### made by applelflyer
