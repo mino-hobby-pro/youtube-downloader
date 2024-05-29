@@ -13,6 +13,19 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
   <link rel="stylesheet" href="viewer.css">
+  <style>
+    .member-card {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .member-card:hover {
+      transform: scale(1.05);
+    }
+    .rounded-card {
+      border-radius: 15px;
+      overflow: hidden;
+    }
+  </style>
 </head>
 <body>
   <header class="header">
@@ -34,11 +47,7 @@
             </select>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-8 offset-md-2">
-            <div id="video-container" class="d-flex flex-wrap justify-content-center"></div>
-          </div>
-        </div>
+        <div class="row" id="video-container"></div>
       </div>
     </section>
   </main>
@@ -52,62 +61,68 @@
     </div>
   </footer>
   <canvas id="sparkleCanvas" style="position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
-  <script src="sparkles.js"></script>
-  <script src="bootstrap.bundle.min.js"></script>
-  <script src="tilt-card.js"></script>
+  <script defer src="sparkles.js"></script>
+  <script defer src="bootstrap.bundle.min.js"></script>
+  <script defer src="tilt-card.js"></script>
   <script>
-    // Load navbar
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('navbar-container').innerHTML = data;
-      })
-      .catch(error => console.error('Error loading navbar:', error));
-
-    const videoContainer = document.getElementById('video-container');
-    const categorySelect = document.getElementById('category-select');
-
-    function fetchVideos(category = '') {
-      const apiUrl = `https://vid.puffyan.us/api/v1/trending?${category ? `type=${category}` : ''}`;
-
-      fetch(apiUrl)
-        .then(response => response.json())
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch('navbar.html')
+        .then(response => response.text())
         .then(data => {
-          videoContainer.innerHTML = '';
-          data.forEach(video => {
-            const videoElement = document.createElement('div');
-            videoElement.classList.add('member-card', 'p-3', 'mb-4');
-
-            videoElement.innerHTML = `
-              <div class="row g-4">
-                <div class="col-md-4">
-                  <img src="${video.videoThumbnails[0].url}" alt="${video.title}" class="img-fluid rounded mb-3">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">${video.title}</h5>
-                    <p class="card-text mb-1">By: ${video.author}</p>
-                    <p class="card-text mb-1">Views: ${video.viewCount}</p>
-                    <p class="card-text mb-3">Published: ${video.publishedText}</p>
-                    <a href="viewer.html?id=${video.videoId}" class="btn btn-outline-light">Watch</a>
-                  </div>
-                </div>
-              </div>
-            `;
-
-            videoContainer.appendChild(videoElement);
-          });
+          document.getElementById('navbar-container').innerHTML = data;
         })
-        .catch(error => console.error('Error fetching the data:', error));
-    }
+        .catch(error => console.error('Error loading navbar:', error));
 
-    // Initial fetch
-    fetchVideos();
+      const videoContainer = document.getElementById('video-container');
+      const categorySelect = document.getElementById('category-select');
 
-    // Event listener for category change
-    categorySelect.addEventListener('change', () => {
-      const selectedCategory = categorySelect.value;
-      fetchVideos(selectedCategory);
+      function fetchVideos(category = '') {
+        const apiUrl = `https://vid.puffyan.us/api/v1/trending?${category ? `type=${category}` : ''}`;
+
+        fetch(apiUrl)
+          .then(response => response.json())
+          .then(data => {
+            videoContainer.innerHTML = '';
+            const fragment = document.createDocumentFragment();
+            data.forEach(video => {
+              const videoElement = document.createElement('div');
+              videoElement.classList.add('col-md-4', 'mb-4');
+              
+              videoElement.innerHTML = `
+                <a href="viewer.html?id=${video.videoId}" class="text-decoration-none text-white">
+                  <div class="member-card p-3 rounded-card">
+                    <div class="row g-4">
+                      <div class="col-12">
+                        <img src="${video.videoThumbnails[0].url}" alt="${video.title}" class="img-fluid rounded mb-3">
+                      </div>
+                      <div class="col-12">
+                        <div class="card-body">
+                          <h5 class="card-title">${video.title}</h5>
+                          <p class="card-text mb-1">By: ${video.author}</p>
+                          <p class="card-text mb-1">Views: ${video.viewCount}</p>
+                          <p class="card-text mb-3">Published: ${video.publishedText}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              `;
+
+              fragment.appendChild(videoElement);
+            });
+            videoContainer.appendChild(fragment);
+          })
+          .catch(error => console.error('Error fetching the data:', error));
+      }
+
+      // Initial fetch
+      fetchVideos();
+
+      // Event listener for category change
+      categorySelect.addEventListener('change', () => {
+        const selectedCategory = categorySelect.value;
+        fetchVideos(selectedCategory);
+      });
     });
   </script>
 </body>
