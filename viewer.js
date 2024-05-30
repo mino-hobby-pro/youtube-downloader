@@ -194,3 +194,18 @@ document.getElementById('fetch-video').addEventListener('click', function() {
     alert('Please enter a valid YouTube ID.');
   }
 });
+
+document.getElementById('download-video').addEventListener('click', function() {
+  const embedUrl = document.querySelector('iframe').getAttribute('src');
+  if (embedUrl) {
+    const videoIdMatch = embedUrl.match(/\/embed\/([^?]+)/);
+    if (videoIdMatch && videoIdMatch.length > 1) {
+      const videoId = videoIdMatch[1];
+      window.open(`/downloader?id=${videoId}`, '_blank');
+    } else {
+      alert('Video ID not found in the iframe URL.');
+    }
+  } else {
+    alert('No iframe found in the document.');
+  }
+});

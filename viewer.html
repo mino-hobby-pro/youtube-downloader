@@ -25,16 +25,16 @@
         <div class="row mb-5">
           <div class="col-md-8 offset-md-2 text-center">
             <h2 class="mb-4">YouTube Player</h2>
-            <div class="about-box">
-              <label for="youtube-id" class="about-text">YouTube ID:</label>
-              <input type="text" id="youtube-id" placeholder="Enter YouTube video ID" class="form-control">
-              <button id="fetch-video" class="btn btn-outline-light btn-curved mt-2">Fetch</button>
+            <div class="about-box mb-4 d-flex">
+              <input type="text" id="youtube-id" placeholder="Enter Youtube video ID" class="form-control flex-grow-1">
+              <button id="fetch-video" class="btn btn-outline-light btn-curved ms-2">Search</button>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-8 offset-md-2 text-center">
             <div id="video-container"></div>
+            <button id="download-video" class="btn btn-primary">Download Video</button>
             <div id="video-details" class="mt-4"></div>
           </div>
         </div>
