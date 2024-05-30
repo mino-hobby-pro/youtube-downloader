@@ -8,10 +8,6 @@ body {
   flex-direction: column;
 }
 
-a {
-  color: #303446;
-}
-
 .header {
   position: -webkit-sticky;
   position: sticky;
@@ -31,21 +27,6 @@ a {
 
 .nav-link.active {
   font-weight: bold;
-}
-
-.member-card {
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: none;
-  color: #fff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  transition: box-shadow 0.3s ease-in-out;
-  cursor: pointer;
-}
-
-.member-card:hover {
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-  transform: scale(1.05);
 }
 
 .btn-outline-light {
@@ -81,12 +62,17 @@ a {
   background-color: #eee;
 }
 
+.about-box input[type="text"] {
+  flex-grow: 1;
+}
+
 .about-box {
   background-color: rgba(128, 128, 128, 0.5);
   border-radius: 10px;
   padding: 20px;
-  display: fixed;
+  display: flex;
   position: relative;
+  align-items: center;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.3s ease-in-out;
 }
@@ -98,14 +84,9 @@ a {
   position: relative;
   z-index: 1;
 }
+
 .about-box:hover {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-}
-
-.tilt-card {
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  transition: transform 0.2s;
 }
 
 .form-control {
@@ -119,13 +100,6 @@ a {
 
 .form-control:focus {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-}
-
-.video-details-box {
-  background-color: rgba(128, 128, 128, 0.5);
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  z-index: 1;
 }
 
 .video-details-card {
@@ -159,6 +133,7 @@ a {
   max-height: 200px;
   overflow-y: auto;
 }
+
 .video-description p {
   margin-bottom: 1rem;
   text-align: left;
