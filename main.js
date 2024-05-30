@@ -21,8 +21,8 @@ let searchQuery = '';
 
 function fetchVideos(filter = 'popular', category = '') {
   const apiUrl = filter === 'popular'
-    ? 'https://vid.puffyan.us/api/v1/popular'
-    : `https://vid.puffyan.us/api/v1/trending?${category ? `type=${category}` : ''}`;
+    ? 'https://yewtu.be/api/v1/popular'
+    : `https://yewtu.be/api/v1/trending?${category ? `type=${category}` : ''}`;
 
   isLoading = true;
   toggleLoadingState(true);
@@ -80,7 +80,7 @@ function fetchVideos(filter = 'popular', category = '') {
 }
 
 function searchVideos(query, page = 1) {
-    const searchUrl = `https://vid.puffyan.us/api/v1/search?q=${encodeURIComponent(query)}&page=${page}&type=video`;
+    const searchUrl = `https://yewtu.be/api/v1/search?q=${encodeURIComponent(query)}&page=${page}&type=video`;
     loadMoreButton.disabled = false;
   
     isLoading = true;

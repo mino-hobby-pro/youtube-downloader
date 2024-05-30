@@ -2,7 +2,7 @@
 let currentPage = 1;
 let searchQuery = '';
 function searchVideos(query, page = 1) {
-    const searchUrl = `https://vid.puffyan.us/api/v1/search?q=${encodeURIComponent(query)}&page=${page}&type=all`;
+    const searchUrl = `https://yewtu.be/api/v1/search?q=${encodeURIComponent(query)}&page=${page}&type=all`;
 
     fetch(searchUrl)
     .then(response => response.json())

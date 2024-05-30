@@ -9,7 +9,7 @@ function embedVideo(videoId) {
     </div>
   `;
 
-  fetch(`https://vid.puffyan.us/api/v1/videos/${videoId}`)
+  fetch(`https://yewtu.be/api/v1/videos/${videoId}`)
     .then(response => response.json())
     .then(data => {
       const videoDetails = document.getElementById('video-details');
@@ -50,7 +50,7 @@ function embedVideo(videoId) {
 }
 
 function fetchAndRenderComments(videoId, sortBy = 'top', source = 'youtube', continuation = null, page = 1) {
-  const url = `https://vid.puffyan.us/api/v1/comments/${videoId}?sort_by=${sortBy}&source=${source}${continuation ? `&continuation=${continuation}` : ''}`;
+  const url = `https://yewtu.be/api/v1/comments/${videoId}?sort_by=${sortBy}&source=${source}${continuation ? `&continuation=${continuation}` : ''}`;
 
   // Check if the buttons exist before trying to disable them
   const topCommentsButton = document.querySelector('#top-comments-button');
