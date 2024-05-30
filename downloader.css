@@ -81,17 +81,12 @@ a {
   background-color: #eee;
 }
 
-.about-box input[type="text"] {
-  flex-grow: 1;
-}
-
 .about-box {
   background-color: rgba(128, 128, 128, 0.5);
   border-radius: 10px;
   padding: 20px;
-  display: flex;
+  display: fixed;
   position: relative;
-  align-items: center;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.3s ease-in-out;
 }
