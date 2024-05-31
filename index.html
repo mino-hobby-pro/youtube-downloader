@@ -34,7 +34,8 @@
             <button class="btn btn-outline-light me-2" id="popularBtn">Popular</button>
             <button class="btn btn-outline-light me-2" id="trendingBtn">Trending</button>
             <select class="form-select" id="trendingType" disabled>
-                <option value="all">All</option>
+                <option value="everything">All Types</option>
+                <option value="all">Main</option>
                 <option value="music">Music</option>
                 <option value="gaming">Gaming</option>
                 <option value="news">News</option>
@@ -52,6 +53,9 @@
         </div>
       </div>
     </section>
+    <div id="loadingOverlay" style="display: none;">
+      <div class="loading-spinner"></div>
+    </div>
   </main>
 
   <footer class="bg-transparent text-white py-3 mt-auto">

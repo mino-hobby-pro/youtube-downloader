@@ -28,6 +28,7 @@ function clearVideoFeed() {
 function fetchVideos(endpoint, params = {}) {
   isLoading = true;
   toggleControls(true);
+  showLoadingOverlay(); // show because broken
 
   const url = `https://vid.puffyan.us/api/v1/${endpoint}?${new URLSearchParams(params)}`;
 
@@ -42,11 +43,13 @@ function fetchVideos(endpoint, params = {}) {
       displayVideos(data);
       isLoading = false;
       toggleControls(false);
+      hideLoadingOverlay(); // hide after load
     })
     .catch(error => {
       console.error('Error fetching videos:', error);
       isLoading = false;
       toggleControls(false);
+      hideLoadingOverlay(); // hide if error
       displayErrorMessage(error);
     });
 }
@@ -66,34 +69,115 @@ function displayVideos(videos) {
   }
 }
 
-function createVideoCard(video) {
+function createVideoCard(item) {
   const card = document.createElement('div');
   card.classList.add('col-md-4', 'mb-1');
+  // fix undefined error as videocard logic only supported video cards at first
+  // added support for playlist *LISTING* and channels, but main logic to open the channel/playlist has not been implimented yet
+  if (currentFeed === 'search') {
+    if (item.type === 'video') {
+      let thumbnailUrl = '';
+      if (Array.isArray(item.videoThumbnails) && item.videoThumbnails.length > 0) {
+        thumbnailUrl = item.videoThumbnails[0].url;
+      } else {
+        thumbnailUrl = 'https://via.placeholder.com/320x180?text=No+Thumbnail';
+      }
 
-  let thumbnailUrl = '';
-  if (Array.isArray(video.videoThumbnails) && video.videoThumbnails.length > 0) {
-    thumbnailUrl = video.videoThumbnails[0].url;
-  }
-  //the code that gave me 100 backaches
-  card.innerHTML = `
-  <a href="viewer.html?id=${video.videoId}" class="text-decoration-none text-white">
-    <div class="member-card p-3 rounded-card tilt-card">
-    <div class="row g-4">
-        <div class="col-md-12">
-          <img src="${video.videoThumbnails[0].url}" class="card-img-top rounded" alt="${video.title}">
-        </div>
-        <div class="col-12">
-          <div class="card-body">
-            <h5 class="card-title">${video.title}</h5>
-            <p class="card-text mb-1">By: ${video.author}</p>
-            <p class="card-text mb-1">Views: ${video.viewCount}</p>
-            <p class="card-text mb-3">Published: ${video.publishedText}</p>
+      card.innerHTML = `
+        <a href="viewer.html?id=${item.videoId}" class="text-decoration-none text-white">
+          <div class="member-card p-3 rounded-card tilt-card">
+            <div class="row g-4">
+              <div class="col-md-12">
+                <img src="${thumbnailUrl}" class="card-img-top rounded" alt="${item.title}">
+              </div>
+              <div class="col-12">
+                <div class="card-body">
+                  <h5 class="card-title">${item.title}</h5>
+                  <p class="card-text mb-1">By: ${item.author}</p>
+                  <p class="card-text mb-1">Views: ${item.viewCount}</p>
+                  <p class="card-text mb-3">Published: ${item.publishedText}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      `;
+    } else if (item.type === 'playlist') {
+      card.innerHTML = `
+        <a href="#" class="text-decoration-none text-white">
+          <div class="member-card p-3 rounded-card tilt-card">
+            <div class="row g-4">
+              <div class="col-md-12">
+                <img src="${item.playlistThumbnail}" class="card-img-top rounded" alt="${item.title}">
+              </div>
+              <div class="col-12">
+                <div class="card-body">
+                  <h5 class="card-title">${item.title}</h5>
+                  <p class="card-text mb-1">By: ${item.author}</p>
+                  <p class="card-text mb-1">Video Count: ${item.videoCount}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      `;
+    } else if (item.type === 'channel') {
+      let thumbnailUrl = '';
+      if (Array.isArray(item.authorThumbnails) && item.authorThumbnails.length > 0) {
+        thumbnailUrl = item.authorThumbnails[0].url;
+      } else {
+        thumbnailUrl = 'https://via.placeholder.com/320x180?text=No+Thumbnail';
+      }
+
+      card.innerHTML = `
+        <a href="/channel?id=${item.authorId}" target="_blank" class="text-decoration-none text-white">
+          <div class="member-card p-3 rounded-card tilt-card">
+            <div class="row g-4">
+              <div class="col-md-7">
+                <img src="${thumbnailUrl}" class="card-img-top rounded" alt="${item.author}">
+              </div>
+              <div class="col-12">
+                <div class="card-body">
+                  <h5 class="card-title">${item.author}</h5>
+                  <p class="card-text mb-1">Subscriber Count: ${item.subCount}</p>
+                  <p class="card-text mb-1">Video Count: ${item.videoCount}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      `;
+    }
+  } else {
+    // handle for main feeds
+    let thumbnailUrl = '';
+    if (Array.isArray(item.videoThumbnails) && item.videoThumbnails.length > 0) {
+      thumbnailUrl = item.videoThumbnails[0].url;
+    } else {
+      thumbnailUrl = 'https://via.placeholder.com/320x180?text=No+Thumbnail';
+    }
+
+    card.innerHTML = `
+      <a href="viewer.html?id=${item.videoId}" class="text-decoration-none text-white">
+        <div class="member-card p-3 rounded-card tilt-card">
+          <div class="row g-4">
+            <div class="col-md-12">
+              <img src="${thumbnailUrl}" class="card-img-top rounded" alt="${item.title}">
+            </div>
+            <div class="col-12">
+              <div class="card-body">
+                <h5 class="card-title">${item.title}</h5>
+                <p class="card-text mb-1">By: ${item.author}</p>
+                <p class="card-text mb-1">Views: ${item.viewCount}</p>
+                <p class="card-text mb-3">Published: ${item.publishedText}</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </a>
-  `;
+      </a>
+    `;
+  }
+
   return card;
 }
 
@@ -108,6 +192,7 @@ function toggleControls(disabled) {
   popularBtn.disabled = disabled;
   trendingBtn.disabled = disabled;
   trendingType.disabled = disabled || (currentFeed !== 'trending' && currentFeed !== 'search');
+  loadMoreContainer.style.display = currentFeed === 'search' ? 'block' : 'none';
 }
 
 function handlePopularClick() {
@@ -119,13 +204,54 @@ function handlePopularClick() {
 function handleTrendingClick() {
   currentFeed = 'trending';
   trendingType.disabled = false;
-  fetchVideos('trending', { type: trendingType.value });
+  fetchMultipleEndpoints();
 }
 
 function handleTrendingTypeChange() {
   if (currentFeed === 'trending') {
-    fetchVideos('trending', { type: trendingType.value });
+    const selectedType = trendingType.value;
+    if (selectedType === 'everything') {
+      fetchMultipleEndpoints();
+    } else {
+      fetchVideos('trending', { type: selectedType });
+    }
   }
+}
+function fetchMultipleEndpoints() {
+  isLoading = true;
+  toggleControls(true);
+  showLoadingOverlay(); // show loading fix :3
+
+  const endpoints = [
+    { url: 'https://vid.puffyan.us/api/v1/trending?type=music', type: 'music' },
+    { url: 'https://vid.puffyan.us/api/v1/trending?type=gaming', type: 'gaming' },
+    { url: 'https://vid.puffyan.us/api/v1/trending?type=news', type: 'news' },
+    { url: 'https://vid.puffyan.us/api/v1/trending?type=movies', type: 'movies' },
+    { url: 'https://vid.puffyan.us/api/v1/trending?type=all', type: 'all' }
+  ];
+
+  const promises = endpoints.map(endpoint =>
+    fetch(endpoint.url)
+      .then(response => response.json())
+      .then(data => data.map(item => ({ ...item, type: endpoint.type })))
+  );
+
+  Promise.all(promises)
+    .then(results => {
+      const combinedResults = results.flatMap(result => result);
+      const uniqueVideos = Array.from(new Map(combinedResults.map(item => [item.videoId, item])).values());
+      displayVideos(uniqueVideos);
+      isLoading = false;
+      toggleControls(false);
+      hideLoadingOverlay();
+    })
+    .catch(error => {
+      console.error('Error fetching videos:', error);
+      isLoading = false;
+      toggleControls(false);
+      hideLoadingOverlay();
+      displayErrorMessage(error);
+    });
 }
 
 function handleSearchClick() {
@@ -137,10 +263,26 @@ function handleSearchClick() {
   }
 }
 
+// handle when in search feed and 
 function handleLoadMoreClick() {
   currentPage++;
   const params = currentFeed === 'search' ? { q: searchInput.value.trim(), page: currentPage } : { page: currentPage };
   fetchVideos(currentFeed, params);
+}
+
+// loading overlay 
+function showLoadingOverlay() {
+  const loadingOverlay = document.getElementById('loadingOverlay');
+  if (loadingOverlay) {
+    loadingOverlay.style.display = 'flex';
+  }
+}
+
+function hideLoadingOverlay() {
+  const loadingOverlay = document.getElementById('loadingOverlay');
+  if (loadingOverlay) {
+    loadingOverlay.style.display = 'none';
+  }
 }
 
 popularBtn.addEventListener('click', handlePopularClick);
