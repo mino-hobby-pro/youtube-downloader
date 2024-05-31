@@ -137,3 +137,6 @@ body {
     justify-content: center;
     align-items: center;
   }
+  select:disabled {
+    opacity: 0.2;
+  }
