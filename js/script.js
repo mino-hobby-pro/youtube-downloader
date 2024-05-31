@@ -83,7 +83,7 @@ function createVideoCard(item) {
       }
 
       card.innerHTML = `
-        <a href="viewer.html?id=${item.videoId}" class="text-decoration-none text-white">
+        <a href="viewer?id=${item.videoId}" class="text-decoration-none text-white">
           <div class="member-card p-3 rounded-card tilt-card">
             <div class="row g-4">
               <div class="col-md-12 position-relative">
@@ -162,7 +162,7 @@ function createVideoCard(item) {
     }
 
     card.innerHTML = `
-      <a href="viewer.html?id=${item.videoId}" class="text-decoration-none text-white">
+      <a href="viewer?id=${item.videoId}" class="text-decoration-none text-white">
         <div class="member-card p-3 rounded-card tilt-card">
           <div class="row g-4">
             <div class="col-md-12 position-relative">
