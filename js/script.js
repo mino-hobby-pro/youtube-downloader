@@ -72,8 +72,7 @@ function displayVideos(videos) {
 function createVideoCard(item) {
   const card = document.createElement('div');
   card.classList.add('col-md-4', 'mb-1');
-  // fix undefined error as videocard logic only supported video cards at first
-  // added support for playlist *LISTING* and channels, but main logic to open the channel/playlist has not been implimented yet
+
   if (currentFeed === 'search') {
     if (item.type === 'video') {
       let thumbnailUrl = '';
@@ -87,8 +86,11 @@ function createVideoCard(item) {
         <a href="viewer.html?id=${item.videoId}" class="text-decoration-none text-white">
           <div class="member-card p-3 rounded-card tilt-card">
             <div class="row g-4">
-              <div class="col-md-12">
-                <img src="${thumbnailUrl}" class="card-img-top rounded" alt="${item.title}">
+              <div class="col-md-12 position-relative">
+                <div class="thumbnail-placeholder">
+                  <div class="loading-spinner"></div>
+                </div>
+                <img src="${thumbnailUrl}" class="card-img-top rounded" alt="${item.title}" onload="this.previousElementSibling.style.display = 'none';">
               </div>
               <div class="col-12">
                 <div class="card-body">
@@ -133,8 +135,11 @@ function createVideoCard(item) {
         <a href="/channel?id=${item.authorId}" target="_blank" class="text-decoration-none text-white">
           <div class="member-card p-3 rounded-card tilt-card">
             <div class="row g-4">
-              <div class="col-md-7">
-                <img src="${thumbnailUrl}" class="card-img-top rounded" alt="${item.author}">
+              <div class="col-md-7 position-relative">
+                <div class="thumbnail-placeholder">
+                  <div class="loading-spinner"></div>
+                </div>
+                <img src="${thumbnailUrl}" class="card-img-top rounded" alt="${item.author}" onload="this.previousElementSibling.style.display = 'none';">
               </div>
               <div class="col-12">
                 <div class="card-body">
@@ -149,7 +154,6 @@ function createVideoCard(item) {
       `;
     }
   } else {
-    // handle for main feeds
     let thumbnailUrl = '';
     if (Array.isArray(item.videoThumbnails) && item.videoThumbnails.length > 0) {
       thumbnailUrl = item.videoThumbnails[0].url;
@@ -161,8 +165,11 @@ function createVideoCard(item) {
       <a href="viewer.html?id=${item.videoId}" class="text-decoration-none text-white">
         <div class="member-card p-3 rounded-card tilt-card">
           <div class="row g-4">
-            <div class="col-md-12">
-              <img src="${thumbnailUrl}" class="card-img-top rounded" alt="${item.title}">
+            <div class="col-md-12 position-relative">
+              <div class="thumbnail-placeholder">
+                <div class="loading-spinner"></div>
+              </div>
+              <img src="${thumbnailUrl}" class="card-img-top rounded" alt="${item.title}" onload="this.previousElementSibling.style.display = 'none';">
             </div>
             <div class="col-12">
               <div class="card-body">
@@ -180,6 +187,7 @@ function createVideoCard(item) {
 
   return card;
 }
+
 
 function displayErrorMessage(error) {
   const errorMessage = document.createElement('div');
