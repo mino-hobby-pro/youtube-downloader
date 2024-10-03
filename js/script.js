@@ -30,7 +30,7 @@ function fetchVideos(endpoint, params = {}) {
   toggleControls(true);
   showLoadingOverlay(); // show because broken
 
-  const url = `https://vid.puffyan.us/api/v1/${endpoint}?${new URLSearchParams(params)}`;
+  const url = `https://invidious.nerdvpn.de/api/v1/${endpoint}?${new URLSearchParams(params)}`;
 
   fetch(url)
     .then(response => {
@@ -231,11 +231,11 @@ function fetchMultipleEndpoints() {
   showLoadingOverlay(); // show loading fix :3
 
   const endpoints = [
-    { url: 'https://vid.puffyan.us/api/v1/trending?type=music', type: 'music' },
-    { url: 'https://vid.puffyan.us/api/v1/trending?type=gaming', type: 'gaming' },
-    { url: 'https://vid.puffyan.us/api/v1/trending?type=news', type: 'news' },
-    { url: 'https://vid.puffyan.us/api/v1/trending?type=movies', type: 'movies' },
-    { url: 'https://vid.puffyan.us/api/v1/trending?type=all', type: 'all' }
+    { url: 'https://invidious.nerdvpn.de/api/v1/trending?type=music', type: 'music' },
+    { url: 'https://invidious.nerdvpn.de/api/v1/trending?type=gaming', type: 'gaming' },
+    { url: 'https://invidious.nerdvpn.de/api/v1/trending?type=news', type: 'news' },
+    { url: 'https://invidious.nerdvpn.de/api/v1/trending?type=movies', type: 'movies' },
+    { url: 'https://invidious.nerdvpn.de/api/v1/trending?type=all', type: 'all' }
   ];
 
   const promises = endpoints.map(endpoint =>
