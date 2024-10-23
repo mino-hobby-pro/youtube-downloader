@@ -21,7 +21,7 @@ function embedVideo(videoId) {
     </div>
   `;
 
-  fetch(`https://invidious.nerdvpn.de/api/v1/videos/${videoId}`)
+  fetch(`https://invidious.jing.rocks/api/v1/videos/${videoId}`)
     .then(response => response.json())
     .then(data => {
       renderVideoDetails(data);
@@ -69,7 +69,7 @@ function renderVideoDetails(data) {
 }
 
 function fetchAndRenderComments(videoId, sortBy = 'top', source = 'youtube', continuation = null, page = 1) {
-    const url = `https://invidious.nerdvpn.de/api/v1/comments/${videoId}?sort_by=${sortBy}&source=${source}${continuation ? `&continuation=${continuation}` : ''}`;
+    const url = `https://invidious.jing.rocks/api/v1/comments/${videoId}?sort_by=${sortBy}&source=${source}${continuation ? `&continuation=${continuation}` : ''}`;
   
     const topCommentsButton = document.querySelector('#top-comments-button');
     const newCommentsButton = document.querySelector('#new-comments-button');
